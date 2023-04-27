@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "110820536040",
+    "project_id": "petsgram-c150b",
+    "storage_bucket": "petsgram-c150b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:110820536040:android:d717f7b52b0ee55ceaa35d",
+        "android_client_info": {
+          "package_name": "com.example.pet_management"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "110820536040-a21hopbnpdplfpjo4ol8747u0pqjn9rs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDk49fBr7zhIn_tj2_YO_FjxFowFqSr16o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "110820536040-a21hopbnpdplfpjo4ol8747u0pqjn9rs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
