@@ -94,7 +94,12 @@ class _PostCardState extends State<PostCard> {
                                     padding: const EdgeInsets.symmetric(
                                         vertical: 16),
                                     shrinkWrap: true,
-                                    children: ['Archive', 'Delete', 'Cancel']
+                                    children: [
+                                      'Archive',
+                                      'Unarchive',
+                                      'Delete',
+                                      'Cancel'
+                                    ]
                                         .map(
                                           (e) => InkWell(
                                               child: Container(

@@ -83,7 +83,7 @@ class _SearchViewState extends State<SearchView> {
                     child: Column(
                       children: [
                         Expanded(
-                          child: Image.network(post['imageUrl'].toString()),
+                          child: Image.network(post['postUrl'].toString()),
                         ),
                         Padding(
                           padding: EdgeInsets.all(8.0),
