@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:pet_management/landingView.dart';
+import 'package:pet_management/adminnav/adminArchivePosts.dart';
+import 'package:pet_management/providers/user_provider.dart';
+import 'package:pet_management/userlandingView.dart';
 import 'package:pet_management/login_view.dart';
 import 'package:pet_management/register_view.dart';
 import 'package:pet_management/routes.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,18 +20,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Petsgram',
-      theme: ThemeData(
-        primarySwatch: Colors.purple,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => UserProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Petsgram',
+        theme: ThemeData(
+          primarySwatch: Colors.purple,
+        ),
+        home: const MyHomePage(title: 'Petsgram'),
+        routes: {
+          registerRoute: (context) => const RegistrationView(),
+          loginRoute: (context) => LoginView(),
+          landingRoute: (context) => const landingView(),
+          adminArchiveViewRoute: (context) => const AdminArchiveView(),
+        },
       ),
-      home: const MyHomePage(title: 'Petsgram'),
-      routes: {
-        registerRoute: (context) => const RegistrationView(),
-        loginRoute: (context) => LoginView(),
-        landingRoute: (context) => const landingView(),
-      },
     );
   }
 }

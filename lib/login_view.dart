@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_management/routes.dart';
 import 'package:pet_management/util/dropdown.dart';
 
 const List<String> list = <String>['User', 'Vet', 'Admin'];
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class LoginView extends StatefulWidget {
   @override
@@ -11,6 +13,23 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
   String selectedValue = '';
+  late final TextEditingController _email;
+  late final TextEditingController _password;
+
+  @override
+  void initState() {
+    _email = TextEditingController();
+    _password = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _email.dispose();
+    _password.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,12 +45,14 @@ class _LoginViewState extends State<LoginView> {
         child: Column(
           children: [
             TextFormField(
+              controller: _email,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Email',
               ),
             ),
             TextFormField(
+              controller: _password,
               obscureText: true,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -56,10 +77,17 @@ class _LoginViewState extends State<LoginView> {
             Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    landingRoute,
-                    (route) => false,
-                  );
+                  final email = _email.text;
+                  final password = _password.text;
+                  try {
+                    _auth.signInWithEmailAndPassword(
+                        email: email, password: password);
+                    Navigator.of(context).pushNamedAndRemoveUntil(
+                      landingRoute,
+                      (route) => false,
+                    );
+                  } catch (e) {}
+                  ;
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple,

@@ -1,10 +1,50 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_management/providers/user_provider.dart';
+import 'package:pet_management/services/firestore_methods.dart';
+import 'package:provider/provider.dart';
+import 'package:pet_management/models/user.dart' as model;
 
-class PostCard extends StatelessWidget {
-  const PostCard({super.key});
+class PostCard extends StatefulWidget {
+  final snap;
+  const PostCard({
+    Key? key,
+    required this.snap,
+  }) : super(key: key);
+
+  @override
+  State<PostCard> createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
+  deletePost(String postId) async {
+    try {
+      await FireStoreMethods().deletePost(postId);
+    } catch (err) {}
+  }
+
+  Future<void> archivePost(String postId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(postId)
+          .update({'isArchived': true});
+    } catch (e) {}
+  }
+
+  Future<void> unarchivePost(String postId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('posts')
+          .doc(postId)
+          .update({'isArchived': false});
+    } catch (e) {}
+  }
 
   @override
   Widget build(BuildContext context) {
+    final model.User user = Provider.of<UserProvider>(context).getUser;
+
     return Container(
       padding: const EdgeInsets.symmetric(
         vertical: 10,
@@ -33,7 +73,7 @@ class PostCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          "user1",
+                          widget.snap['username'].toString(),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -42,41 +82,67 @@ class PostCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => Dialog(
-                        child: ListView(
-                          padding: EdgeInsets.symmetric(vertical: 16.0),
-                          shrinkWrap: true,
-                          children: ['Delete', 'cancel']
-                              .map(
-                                (e) => InkWell(
-                                  onTap: () {},
-                                  child: Container(
+                widget.snap['uid'].toString() == user.uid
+                    ? IconButton(
+                        onPressed: () {
+                          showDialog(
+                            useRootNavigator: false,
+                            context: context,
+                            builder: (context) {
+                              return Dialog(
+                                child: ListView(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 12, horizontal: 16),
-                                    child: Text(e),
-                                  ),
-                                ),
-                              )
-                              .toList(),
-                        ),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.more_vert),
-                ),
+                                        vertical: 16),
+                                    shrinkWrap: true,
+                                    children: ['Archive', 'Delete', 'Cancel']
+                                        .map(
+                                          (e) => InkWell(
+                                              child: Container(
+                                                padding:
+                                                    const EdgeInsets.symmetric(
+                                                        vertical: 12,
+                                                        horizontal: 16),
+                                                child: Text(e),
+                                              ),
+                                              onTap: () {
+                                                switch (e) {
+                                                  case 'Archive':
+                                                    archivePost(widget
+                                                        .snap['postId']
+                                                        .toString());
+                                                    break;
+                                                  case 'Unarchive':
+                                                    unarchivePost(widget
+                                                        .snap['postId']
+                                                        .toString());
+                                                    break;
+                                                  case 'Delete':
+                                                    deletePost(widget
+                                                        .snap['postId']
+                                                        .toString());
+                                                    break;
+                                                  default:
+                                                    break;
+                                                }
+                                                Navigator.of(context).pop();
+                                              }),
+                                        )
+                                        .toList()),
+                              );
+                            },
+                          );
+                        },
+                        icon: const Icon(Icons.more_vert),
+                      )
+                    : Container(),
               ],
             ),
           ),
-
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.35,
             width: double.infinity,
             child: Image.network(
-              'https://images.unsplash.com/photo-1680521094897-7b161e2b31ee?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=415&q=80',
+              widget.snap['postUrl'].toString(),
               fit: BoxFit.cover,
             ),
           ),
@@ -84,8 +150,7 @@ class PostCard extends StatelessWidget {
             children: [
               IconButton(
                 icon: const Icon(
-                  Icons.favorite,
-                  color: Colors.red,
+                  Icons.favorite_outline,
                 ),
                 onPressed: () => const Icon(
                   Icons.favorite,
@@ -100,7 +165,6 @@ class PostCard extends StatelessWidget {
               ),
             ],
           ),
-          //DESCRIPTION AND NUMBER OF COMMENTS
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -123,16 +187,16 @@ class PostCard extends StatelessWidget {
                   ),
                   child: RichText(
                     text: TextSpan(
-                      style: const TextStyle(color: Colors.amber),
+                      style: const TextStyle(color: Colors.black),
                       children: [
                         TextSpan(
-                          text: 'user1',
+                          text: widget.snap['username'].toString(),
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         TextSpan(
-                          text: 'I like poodles and malamutes and cats ',
+                          text: ' ${widget.snap['description']}',
                         ),
                       ],
                     ),
@@ -144,7 +208,7 @@ class PostCard extends StatelessWidget {
                       'View all 20 comments',
                       style: const TextStyle(
                         fontSize: 16,
-                        color: Colors.amber,
+                        color: Colors.grey,
                       ),
                     ),
                     padding: const EdgeInsets.symmetric(vertical: 4),
@@ -155,7 +219,7 @@ class PostCard extends StatelessWidget {
                   child: Text(
                     "28/04/2023",
                     style: const TextStyle(
-                      color: Colors.amber,
+                      color: Colors.grey,
                     ),
                   ),
                   padding: const EdgeInsets.symmetric(vertical: 4),

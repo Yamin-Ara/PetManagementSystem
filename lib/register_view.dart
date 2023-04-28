@@ -1,8 +1,14 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pet_management/routes.dart';
+import 'package:pet_management/services/auth_methods.dart';
 import 'package:pet_management/util/dropdown.dart';
+import 'package:pet_management/models/user.dart' as model;
 
 const List<String> list = <String>['User', 'Vet', 'Admin'];
+final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
 class RegistrationView extends StatefulWidget {
   const RegistrationView({super.key});
@@ -13,6 +19,29 @@ class RegistrationView extends StatefulWidget {
 
 class _RegistrationViewState extends State<RegistrationView> {
   String selectedValue = '';
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    super.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
+    _usernameController.dispose();
+  }
+
+  void signUpUser() async {
+    // set loading to true
+    // signup user using our authmethodds
+    await AuthMethods().signUpUser(
+      email: _emailController.text,
+      password: _passwordController.text,
+      username: _usernameController.text,
+      bio: selectedValue,
+    );
+    // if string returned is sucess, user has been created
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +61,17 @@ class _RegistrationViewState extends State<RegistrationView> {
               height: 2.0,
             ),
             TextFormField(
+              controller: _usernameController,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: 'Username',
+              ),
+            ),
+            const SizedBox(
+              height: 2.0,
+            ),
+            TextFormField(
+              controller: _emailController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Email',
@@ -41,6 +81,7 @@ class _RegistrationViewState extends State<RegistrationView> {
               height: 2.0,
             ),
             TextFormField(
+              controller: _passwordController,
               obscureText: true,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
@@ -48,8 +89,49 @@ class _RegistrationViewState extends State<RegistrationView> {
               ),
             ),
             Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  DropdownButtonExample(onChanged: (String value) {
+                    setState(() {
+                      selectedValue = value;
+
+                      if (selectedValue == 'vet') {
+                        selectedValue = 'doc';
+                      }
+                    });
+                  }),
+                  const SizedBox(height: 20),
+                  Text('Selected Value: $selectedValue'),
+                ],
+              ),
+            ),
+            Center(
               child: ElevatedButton(
                 onPressed: () async {
+                  signUpUser;
+                  final email = _emailController.text;
+                  final pass = _passwordController.text;
+                  final uname = _usernameController.text;
+                  UserCredential cred =
+                      await _auth.createUserWithEmailAndPassword(
+                    email: email,
+                    password: pass,
+                  );
+                  model.User _user = model.User(
+                    username: uname,
+                    uid: cred.user!.uid,
+                    //photoUrl: photoUrl,
+                    email: email,
+                    bio: selectedValue,
+                    //followers: [],
+                    //following: [],
+                  );
+                  await _firestore
+                      .collection("users")
+                      .doc(cred.user!.uid)
+                      .set(_user.toJson());
+
                   const snackBar = SnackBar(content: Text('Sign up complete!'));
                   ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   Navigator.of(context).pushNamedAndRemoveUntil(
@@ -69,23 +151,6 @@ class _RegistrationViewState extends State<RegistrationView> {
                     color: Colors.black,
                   ),
                 ),
-              ),
-            ),
-            Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  DropdownButtonExample(onChanged: (String value) {
-                    setState(() {
-                      selectedValue = value;
-                      if (selectedValue == 'vet') {
-                        selectedValue = 'ok';
-                      }
-                    });
-                  }),
-                  const SizedBox(height: 20),
-                  Text('Selected Value: $selectedValue'),
-                ],
               ),
             ),
             TextButton(
