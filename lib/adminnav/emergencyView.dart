@@ -23,123 +23,143 @@ class _EmergencyViewState extends State<EmergencyView> {
       appBar: AppBar(
         title: const Text("Emergency Contacts"),
       ),
-      body: Column(
-        children: <Widget>[
-          Row(
-            children: [
-              Text("Rescue Team"),
-              IconButton(
-                onPressed: () {
-                  // ignore: deprecated_member_use
-                  launch("tel:999");
-                },
-                icon: Icon(Icons.call),
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Column(
+          children: <Widget>[
+            SizedBox(height: 16.0),
+            ListTile(
+              leading: Icon(Icons.local_hospital, color: Colors.red),
+              title: Text("Rescue Team"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // ignore: deprecated_member_use
+                      launch("tel:999");
+                    },
+                    icon: Icon(
+                      Icons.call,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      notificationService.sendNotifications("Emergency!!!");
+                    },
+                    icon:
+                        Icon(Icons.notifications_active, color: Colors.orange),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: () {
-                  notificationService.sendNotifications("Emergency!!!");
-                },
-                icon: Icon(Icons.notifications_active),
-              )
-            ],
-          ),
-          SizedBox(height: 10.0),
-          Row(
-            children: [
-              Text("Volunteers Association"),
-              IconButton(
-                onPressed: () {
-                  // ignore: deprecated_member_use
-                  launch("tel:999");
-                },
-                icon: Icon(Icons.call),
+            ),
+            SizedBox(height: 16.0),
+            ListTile(
+              leading: Icon(Icons.people, color: Colors.blue),
+              title: Text("Volunteers Association"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // ignore: deprecated_member_use
+                      launch("tel:999");
+                    },
+                    icon: Icon(
+                      Icons.call,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      notificationService.sendNotifications("Rescue needed!!!");
+                    },
+                    icon:
+                        Icon(Icons.notifications_active, color: Colors.orange),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: () {
-                  notificationService.sendNotifications("Rescue needed!!!");
-                },
-                icon: Icon(Icons.notifications_active),
-              )
-            ],
-          ),
-          SizedBox(height: 10.0),
-          Row(
-            children: [
-              Text("Ambulence"),
-              IconButton(
-                onPressed: () {
-                  // ignore: deprecated_member_use
-                  launch("tel:999");
-                },
-                icon: Icon(Icons.call),
+            ),
+            SizedBox(height: 16.0),
+            ListTile(
+              leading: Icon(Icons.local_hospital, color: Colors.red),
+              title: Text("Ambulance"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // ignore: deprecated_member_use
+                      launch("tel:999");
+                    },
+                    icon: Icon(
+                      Icons.call,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      notificationService.sendNotifications("Emergency!!!");
+                    },
+                    icon:
+                        Icon(Icons.notifications_active, color: Colors.orange),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: () {
-                  notificationService.sendNotifications("Emergency!!!");
-                },
-                icon: Icon(Icons.notifications_active),
-              )
-            ],
-          ),
-          SizedBox(height: 10.0),
-          Row(
-            children: [
-              Text("NGO"),
-              IconButton(
-                onPressed: () {
-                  // ignore: deprecated_member_use
-                  launch("tel:999");
-                },
-                icon: Icon(Icons.call),
+            ),
+            SizedBox(height: 16.0),
+            ListTile(
+              leading: Icon(Icons.people, color: Colors.blue),
+              title: Text("NGO"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // ignore: deprecated_member_use
+                      launch("tel:999");
+                    },
+                    icon: Icon(Icons.call),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      notificationService.sendNotifications("Emergency!!!");
+                    },
+                    icon:
+                        Icon(Icons.notifications_active, color: Colors.orange),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: () {
-                  notificationService.sendNotifications("Emergency!!!");
-                },
-                icon: Icon(Icons.notifications_active),
-              )
-            ],
-          ),
-          SizedBox(height: 10.0),
-          Row(
-            children: [
-              Text("Adoption Agency"),
-              IconButton(
-                onPressed: () {
-                  // ignore: deprecated_member_use
-                  launch("tel:999");
-                },
-                icon: Icon(Icons.call),
+            ),
+            SizedBox(height: 16.0),
+            ListTile(
+              leading: Icon(
+                Icons.pets,
               ),
-              IconButton(
-                onPressed: () {
-                  notificationService.sendNotifications("Emergency!!!");
-                },
-                icon: Icon(Icons.notifications_active),
-              )
-            ],
-          ),
-          SizedBox(height: 10.0),
-          Row(
-            children: [
-              Text("Vets"),
-              IconButton(
-                onPressed: () {
-                  // ignore: deprecated_member_use
-                  launch("tel:999");
-                },
-                icon: Icon(Icons.call),
+              title: Text("Adoption Agency"),
+              trailing: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      // ignore: deprecated_member_use
+                      launch("tel:999");
+                    },
+                    icon: Icon(
+                      Icons.call,
+                    ),
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      notificationService.sendNotifications("Emergency!!!");
+                    },
+                    icon:
+                        Icon(Icons.notifications_active, color: Colors.orange),
+                  ),
+                ],
               ),
-              IconButton(
-                onPressed: () {
-                  notificationService.sendNotifications("Emergency!!!");
-                },
-                icon: Icon(Icons.notifications_active),
-              )
-            ],
-          ),
-          SizedBox(height: 10.0),
-        ],
+            ),
+            SizedBox(height: 16.0),
+          ],
+        ),
       ),
     );
   }

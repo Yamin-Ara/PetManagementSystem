@@ -38,7 +38,6 @@ class _LoginViewState extends State<LoginView> {
       appBar: AppBar(
         title: const Text('Petsgram App Login'),
         centerTitle: true,
-        backgroundColor: Colors.purple,
         titleTextStyle: TextStyle(color: Colors.amber),
       ),
       body: SingleChildScrollView(
@@ -90,7 +89,7 @@ class _LoginViewState extends State<LoginView> {
                   ;
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple,
+                  backgroundColor: Color.fromARGB(255, 70, 43, 75),
                 ),
                 child: const Text(
                   'Log in',
