@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Petsgram',
         theme: ThemeData(
-          primarySwatch: MaterialColor(
+          primarySwatch: const MaterialColor(
             0xFF3E2154,
             <int, Color>{
               50: Color(0xFFF2E9F8),
