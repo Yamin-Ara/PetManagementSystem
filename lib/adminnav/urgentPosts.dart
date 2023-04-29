@@ -1,23 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../util/postcard.dart';
 
-class AdminArchiveView extends StatefulWidget {
-  const AdminArchiveView({super.key});
+class UrgentView extends StatefulWidget {
+  const UrgentView({super.key});
 
   @override
-  State<AdminArchiveView> createState() => _AdminArchiveViewState();
+  State<UrgentView> createState() => _UrgentViewState();
 }
 
-class _AdminArchiveViewState extends State<AdminArchiveView> {
+class _UrgentViewState extends State<UrgentView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Archive"),
+        title: Text("Urgent Posts"),
         actions: [
           IconButton(
               onPressed: () {},
@@ -27,7 +25,7 @@ class _AdminArchiveViewState extends State<AdminArchiveView> {
       body: StreamBuilder(
         stream: FirebaseFirestore.instance
             .collection('posts')
-            .where('isArchived', isEqualTo: true)
+            .where('isUrgent', isEqualTo: true)
             .snapshots(),
         builder: (context,
             AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {

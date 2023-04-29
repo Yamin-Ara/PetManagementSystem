@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:pet_management/providers/user_provider.dart';
@@ -20,6 +21,8 @@ class CreateNewView extends StatefulWidget {
 class _CreateNewViewState extends State<CreateNewView> {
   final TextEditingController _descriptionController = TextEditingController();
   Uint8List? _file;
+  bool urgent = false;
+
   _selectImage(BuildContext context) async {
     return showDialog(
         context: context,
@@ -77,6 +80,7 @@ class _CreateNewViewState extends State<CreateNewView> {
         _file!,
         uid,
         username,
+        urgent,
       );
     } catch (err) {
       showSnackBar(
@@ -133,6 +137,7 @@ class _CreateNewViewState extends State<CreateNewView> {
             setState(() {
               selectedValue = value;
               if (selectedValue == 'Urgent') {
+                urgent = true;
                 selectedValue = 'To Admins';
               }
             });

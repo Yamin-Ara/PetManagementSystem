@@ -9,6 +9,7 @@ class Post {
   final DateTime datePublished;
   final String postUrl;
   final bool isArchived;
+  final bool isUrgent;
 
   const Post({
     required this.description,
@@ -19,6 +20,7 @@ class Post {
     required this.datePublished,
     required this.postUrl,
     required this.isArchived,
+    required this.isUrgent,
   });
 
   static Post fromSnap(DocumentSnapshot snap) {
@@ -33,6 +35,7 @@ class Post {
       username: snapshot["username"],
       postUrl: snapshot['postUrl'],
       isArchived: snapshot['isArchived'],
+      isUrgent: snapshot['isUrgent'],
     );
   }
 
@@ -45,5 +48,6 @@ class Post {
         "datePublished": datePublished,
         'postUrl': postUrl,
         "isArchived": isArchived,
+        "isUrgent": isUrgent,
       };
 }

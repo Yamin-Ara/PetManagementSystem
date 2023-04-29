@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../usernav/createNewView.dart';
+import '../usernav/createNewPostView.dart';
 
 class DropdownButtonExample2 extends StatefulWidget {
   final Function(String) onChanged;

@@ -70,8 +70,9 @@ class _ProfileViewState extends State<ProfileView> {
           ),
           ElevatedButton(
             onPressed: () async {
-              Navigator.of(context).pushNamedAndRemoveUntil(
-                  adminArchiveViewRoute, (route) => false);
+              Navigator.of(context).pushNamed(
+                adminLandingViewRoute,
+              );
             },
             child: Text("Go to Admin View"),
           )

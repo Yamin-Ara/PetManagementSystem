@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:pet_management/adminlandingView.dart';
 import 'package:pet_management/adminnav/adminArchivePosts.dart';
 import 'package:pet_management/providers/user_provider.dart';
 import 'package:pet_management/userlandingView.dart';
@@ -37,7 +38,7 @@ class MyApp extends StatelessWidget {
           registerRoute: (context) => const RegistrationView(),
           loginRoute: (context) => LoginView(),
           landingRoute: (context) => const landingView(),
-          adminArchiveViewRoute: (context) => const AdminArchiveView(),
+          adminLandingViewRoute: (context) => const adminLandingView(),
         },
       ),
     );

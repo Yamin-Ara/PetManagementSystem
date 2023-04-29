@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:pet_management/adminnav/adminArchivePosts.dart';
+import 'package:pet_management/adminnav/emergencyView.dart';
+import 'package:pet_management/adminnav/urgentPosts.dart';
 import 'package:pet_management/routes.dart';
-import 'package:pet_management/usernav/createNewPostView.dart';
-import 'package:pet_management/usernav/homeView.dart';
-import 'package:pet_management/usernav/profileView.dart';
-import 'package:pet_management/usernav/searchView.dart';
 import 'package:pet_management/util/menu_actions.dart';
 
-class landingView extends StatefulWidget {
-  const landingView({super.key});
+class adminLandingView extends StatefulWidget {
+  const adminLandingView({super.key});
 
   @override
-  State<landingView> createState() => _landingViewState();
+  State<adminLandingView> createState() => _adminLandingViewState();
 }
 
-class _landingViewState extends State<landingView> {
+class _adminLandingViewState extends State<adminLandingView> {
   int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
@@ -48,23 +47,18 @@ class _landingViewState extends State<landingView> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+            icon: Icon(Icons.archive_outlined),
+            label: 'Archive',
             backgroundColor: Color.fromARGB(253, 62, 33, 76),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
+            icon: Icon(Icons.notification_important_outlined),
+            label: 'Urgent',
             backgroundColor: Color.fromARGB(253, 62, 33, 76),
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline),
-            label: 'New Post',
-            backgroundColor: Color.fromARGB(253, 62, 33, 76),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_box),
-            label: 'My Profile',
+            icon: Icon(Icons.emergency_outlined),
+            label: 'Emergency Alert',
             backgroundColor: Color.fromARGB(253, 62, 33, 76),
           ),
         ],
@@ -77,10 +71,9 @@ class _landingViewState extends State<landingView> {
   }
 
   static const List<Widget> _pageList = <Widget>[
-    HomeView(),
-    SearchView(),
-    CreateNewView(),
-    ProfileView(),
+    AdminArchiveView(),
+    UrgentView(),
+    EmergencyView(),
   ];
 
   void _onItemTapped(int index) {
