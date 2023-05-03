@@ -1,16 +1,5 @@
 # pet_management
 
-A new Flutter project.
+A one stop solution for everything related to pets. A place where pet owners can share content on their furry or feathered friends with the world while also getting emergency help from professionals on time. Moreover, altruists can post about endangered or abandoned animals in need of care to admins to review and then which rescuers and volunteers will be promptly made aware of so they can take proper action while keeping the community informed every step of the way.
 
-## Getting Started
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
